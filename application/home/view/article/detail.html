@@ -1,0 +1,164 @@
+﻿{__NOLAYOUT__}
+{include file="layout/header"}
+<div class="breadcrumb">
+   <a class="crumbs" title="返回首页" href="/">返回首页</a>
+  <i class="iconfont icon-chevronright"> </i>
+  <a href="">正文</a>
+   </div>
+   <div id="content">
+    <div id="primary" class="single-area">
+     <main id="main" class="site-main" role="main">
+      <!-- 文章内容 -->
+      <article id="post-93" class="post-93 post type-post status-publish format-standard hentry category-web-technology tag-ssl tag-startssl tag-43">
+       <header class="entry-header">
+        <div class="single-meta">
+         <span><i class="iconfont icon-calendartext"></i>&nbsp;{{$data.update_time|date='Y-m-d'}}</span>
+         <span><i class="iconfont icon-chartbar">{{$data.view_count}}</i>&nbsp;</span>
+        </div>
+        <div class="clear"></div>
+        <h1 class="entry-title">{{$data.title}}</h1>
+        <div class="single-tag">
+         <i class="iconfont icon-tagmultiple"></i>&nbsp;标签：
+         <a href="" rel="tag">{{$data.tag}}</a>&nbsp;&nbsp;
+        </div>
+        <div class="clear"></div>
+       </header>
+       <div class="single-content">
+         {{$data.contents|raw}}
+       </div>
+       <!-- 文章点赞分享 -->
+       <div class="clear"></div>
+       <div id="social">
+        <div class="social-main">
+         <span class="share-sd"> <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i class="iconfont icon-sharevariant"></i>分享</a></span>
+          <div id="share">
+           <ul class="bdsharebuttonbox">
+            <li><a title="分享到QQ空间" class="iconfont icon-kongjian" data-cmd="qzone"></a></li>
+            <li><a title="分享到QQ好友" class="iconfont icon-qq0" data-cmd="sqq"></a></li>
+            <li><a title="分享到新浪微博" class="iconfont icon-sina" data-cmd="tsina"></a></li>
+            <li><a title="分享到微信" class="iconfont icon-weixin0" data-cmd="weixin"></a></li>
+           </ul>
+          </div> </span>
+         <div class="clear"></div>
+        </div>
+       </div>
+      </article>
+      <div id="copyright">
+       <img alt="" src="/__HOME__/images/nick.jpg" class="avatar avatar-72" width="72" height="72" />
+       <ul class="spostinfo">
+        <li><a target="_blank" rel="nofollow" href="{{:url('/detail',['aid'=>encrypt($data.id)])}}">原文链接</a></li>
+        <li>版权声明：本站原创文章，于{{$data.update_time|date='Y-m-d'}}，由<span rel="author">{{$data.author}}</span>发表。</li>
+        <li>转载请注明：<a href="{{:url('/detail',['aid'=>encrypt($data.id)])}}" rel="bookmark" title="">{{$data.title}}</a></li>
+       </ul>
+      </div>
+      <div id="related-img">
+       <!--如果存在tag标签，列出tag相关文章 -->
+       <!-- 如果tag相关文章少于10篇，那么继续以分类作为相关因素列出相关文章 -->
+       {volist name="randArt" id="vo"}
+       <div class="r4">
+        <div class="related-site">
+         <figure class="related-site-img">
+          <a href="{{:url('/detail',['aid'=>encrypt($vo.id)])}}"><img src="/{{$vo.img_url}}" alt="{{$vo.title}}" /></a>
+         </figure>
+         <div class="related-title">
+          <a href="{{:url('/detail',['aid'=>encrypt($vo.id)])}}">{{$vo.title}}</a>
+         </div>
+        </div>
+       </div>
+       {/volist}
+       <div class="clear"></div>
+      </div>
+      <!-- 上下文 -->
+      <nav class="nav-single">
+       {if count($preArt)==0}
+       <span class="meta-nav" rel="prev"><span class="post-nav"><i class="iconfont icon-chevronleft"></i> 没有了</span><br />已经是第一篇文章</span>
+       {else /}
+       {volist name="preArt" id="vo"}
+       <a href="{{:url('/detail',['aid'=>encrypt($vo.id)])}}" rel="prev"><span class="meta-nav"><span class="post-nav"><i class="iconfont icon-chevronleft"></i> 上一篇</span><br />{{$vo.title}}</span></a>
+       {/volist}
+       {/if}
+
+       {if count($nextArt)==0}
+       <span class="meta-nav"><span class="post-nav">没有了<br /></span>已是最后一篇文章</span>
+       {else /}
+       {volist name="nextArt" id="vo"}
+       <a href="{{:url('/detail',['aid'=>encrypt($vo.id)])}}"><span class="meta-nav"><span class="post-nav">下一篇<br /></span>{{$vo.title}}</span></a>
+       {/volist}
+       {/if}
+       <div class="clear"></div>
+      </nav>
+      <!-- 文章评论 -->
+      <!-- 引用 -->
+      <div id="comments" class="comments-area">
+          {if !is_array($comments)}
+          <h2 class="comments-title"> 此文章暂无人评论</h2>
+          {else /}
+       <h2 class="comments-title"> {{$data.comment}}条留言</h2>
+       <ol class="comment-list">
+           {volist name="comments" id="vo"}
+        <li class="comment even thread-even depth-1 parent" id="comment-34">
+         <div id="div-comment-34" class="comment-body">
+          <div class="comment-author vcard">
+           <img alt="" src="/__HOME__/images/tx-2.jpg" class="avatar avatar-48" width="48" height="48" />
+           <!--<cite class="fn">卡珊德拉</cite> <span class="says">:</span>-->
+           <strong> 匿名用户 </strong>
+           <span class="comment-meta commentmetadata">{{$key|date='Y-m-d H:i:s'}}<br /> <span class="comment-aux">  </span>
+          </div>
+          <p>{{$vo}}</p>
+         </div>
+ </li>
+           {/volist}
+       </ol>
+          {/if}
+
+       <div id="respond" class="comment-respond">
+        <h3 id="reply-title" class="comment-reply-title">给我留言</h3>
+        <form action="/comment" method="post" id="commentform">
+         {{:token()}}
+         <div id="comment-author-info">
+          <p class="comment-form-author"> <select name="author"><option value="">匿名用户</option></select> <label for="author">昵称</label> </p>
+         </div>
+         <div class="clear"></div>
+         <p class="comment-tool">
+		 <span class="smiley-box">
+	评论内容
+</span> </p>
+         <p class="comment-form-comment"><textarea id="comment" name="comment" rows="4" tabindex="4"></textarea></p>
+         <p class="form-submit"> <input id="submit" name="submit" type="submit" tabindex="5" value="提&nbsp;交" /> <input id="reset" name="reset" type="reset" tabindex="6" value="重&nbsp;写" /> <input type="hidden" name="art" value="{{$data.id}}" id="comment_post_ID" /> <input type="hidden" name="comment_parent" id="comment_parent" value="0" /> </p>
+        </form>
+
+       </div>
+      </div>
+      <!-- #comments -->
+     </main>
+    </div>
+   {include file="layout/side"}
+<!-- 友情链接 -->
+<!-- 版权说明 -->
+    {include file="layout/footer"}
+<!-- 返回顶部 -->
+<ul id="scroll">
+ <li><a class="hidden-widget" href="javascript:hiddenwidget()" title="隐藏侧边栏"><i class="iconfont icon-windowclose"></i></a></li>
+ <li><a class="scroll-top" title="返回顶部"><i class="iconfont icon-chevronup"></i></a></li>
+ <li><a class="scroll-bottom" title="转到底部"><i class="iconfont icon-chevrondown"></i></a></li>
+</ul>
+</header>
+</body>
+</html>
+    <script>
+            $('#share-s').click(function () {
+                $('#share').toggle();
+            });
+        window._bd_share_config = {
+            common : {
+                bdText : '{{$data.title}}',
+                bdDesc : '{{$data.summary}}',
+                bdUrl : window.location.href,
+                bdPic : "{{$Request.domain}}/{{$data.img_url}}",
+            },
+            share : [{
+                "bdSize" : 16
+            }],
+        }
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>

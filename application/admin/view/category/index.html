@@ -1,0 +1,105 @@
+<style type="text/css">
+    .pagination {
+        margin-top: 50px;
+    }
+
+    .pagination ul {
+        display: inline;
+    }
+
+    .pagination li {
+        display: inline;
+        float: left;
+        margin-left: 20px;
+        border: 1px solid #020f06;
+        background: #00b7ee;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        vertical-align: center;
+        border-radius: 2px;
+    }
+</style>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 分类管理 <span
+        class="c-gray en">&gt;</span> 分类列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+                                              href="javascript:location.replace(location.href);" title="刷新"><i
+        class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c">
+        {if isset($cate)}
+        <form class="Huiform" action="{{:url('/cate/'.$cate.id)}}" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            {else /}
+            <form class="Huiform" action="{{:url('/cate')}}" method="post">
+                {/if}
+                {{:token()}}
+                <input type="text" value="{{$cate?$cate.cate_name:''}}" name="cate_name" placeholder="分类名称2-15位"
+                       class="input-text" style="width:120px">
+                <input type="text" value="{{$cate?$cate.cate_desc:''}}" name="cate_desc" placeholder="分类描述5-50位"
+                       class="input-text" style="width: 240px">
+                <input type="submit" class="btn btn-success search" id="search" value="{{$cate?'提交更改':'添加分类'}}">
+            </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"></span>
+        <span class="r">共有{{$count}}条，每页显示：<strong>{{:count($list)}}</strong> 条</span></div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="70">ID</th>
+                <th width="120">分类名称</th>
+                <th>具体描述</th>
+                <th width="80">添加时间</th>
+                <th width="80">更新时间</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input name="" type="checkbox" value=""></td>
+                <td>{{$vo.id}}</td>
+                <td>{{$vo.cate_name}}</td>
+                <td>{{$vo.cate_desc}}</td>
+                <td>{{$vo.create_time}}</td>
+                <td>{{$vo.update_time}}</td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none"
+                                                         href="{{:url('/cate/'.$vo.id.'/edit')}}" title="编辑"><i
+                        class="Hui-iconfont">&#xe6df;</i></a>
+                    <a style="text-decoration:none" class="ml-5" href="javascript:delArt({{$vo.id}});" title="删除" id="del"><i
+                            class="Hui-iconfont">&#xe6e2;</i></a></td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <hr style=" height:1px;border:none;border-top:2px solid #131398; margin-top: 25px"/>
+        <div style="text-align: center"> {{$list|raw}}</div>
+    </div>
+</div>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+    function delArt(id) {
+        layer.confirm('确认要删除吗？', function () {
+            $.ajax({
+                type: 'DELETE',
+                url: '/cate/'+id,
+                dataType: 'json',
+                success: function (data) {
+                    //$(obj).parents("tr").remove();
+                    if (data.status==1){
+                        layer.msg(data.message,{icon: 1, time: 1000},function () {
+                            location.href='/cate';
+                        })
+                    }else {
+                        layer.msg(data.message,{icon: 2, time: 1000})
+                    }
+                },
+            });
+        });
+    }
+</script>
+</body>
+</html>

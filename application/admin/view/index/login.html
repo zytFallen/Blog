@@ -1,0 +1,92 @@
+﻿﻿{extend name="public/base" /}
+{block name="meta"}
+{include file="public/meta" /}
+<link rel="Bookmark" href="/favicon.ico">
+<link rel="Shortcut Icon" href="/favicon.ico"/>
+{/block}
+{block name="head"}
+<!--[if lt IE 9]>
+{load href="__ADMIN__/lib/html5shiv.js" /}
+{load href="__ADMIN__/lib/respond.min.js" /}
+<![endif]-->
+{load href="__ADMIN__/static/h-ui/css/H-ui.min.css" /}
+{load href="__ADMIN__/static/h-ui.admin/css/H-ui.login.css" /}
+{load href="__ADMIN__/static/h-ui.admin/css/style.css" /}
+{load href="__ADMIN__/lib/Hui-iconfont/1.0.8/iconfont.css" /}
+<!--[if IE 6]>
+{load href="__ADMIN__/lib/DD_belatedPNG_0.0.8a-min.js"  /}
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>{{$title}}</title>
+</head>
+{/block}
+{block name="content"}
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value=""/>
+<div class="header"></div>
+<div class="loginWraper">
+    <div id="loginform" class="loginBox">
+        <div style="color: #ff6c54;font-size: 15px;text-align:-webkit-center;display: none;" id="message"></div>
+        <form class="form form-horizontal" action="" method="post">
+            <input type="hidden" name="__token__" value="{{$Request.token}}" />
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                <div class="formControls col-xs-8">
+                    <input name="username" type="text" placeholder="账户" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="formControls col-xs-8">
+                    <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="formControls col-xs-8 col-xs-offset-3">
+                    <input name="captcha" class="input-text size-L" type="text" placeholder="请输入验证码" style="width:150px;">
+                    <a><img src="{{:url('/admin/captcha')}}" id="verify" onclick="javascript:change();" title="点击刷新"> </a></div>
+            </div>
+            <div class="row cl">
+                <div class="formControls col-xs-8 col-xs-offset-3">
+                    <input name="" type="button" class="btn btn-success radius size-L"
+                           value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <input name="" type="reset" class="btn btn-default radius size-L"
+                           value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="footer" /}
+{include file="public/footer"}
+{/block}
+{block name="script" /}
+{include file="public/script"}
+<script type="text/javascript">
+        function change(){
+            var time = Date.parse(new Date())/1000;
+            $('#verify').attr('src', "/admin/captcha"+"?time="+time);
+        }
+        $('.btn-success').click(
+            function () {
+                $.ajax({
+                    url:'/admin/checkLogin',
+                    data:$('form').serialize(),
+                    dataType:'JSON',
+                    method:'post',
+                    success:function (data) {
+                        if (data.status==1){
+                            layer.msg('登录成功，正在为您跳转',{'time':1000},function () {
+                                location.href='/admin/index';
+                            });
+                        } else {
+                            $('#message').css({"display":"block","text-align":"center"}).html(data.message);
+                            change();
+                        }
+                    }
+                })
+            }
+        )
+</script>
+{/block}

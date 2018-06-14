@@ -1,0 +1,99 @@
+﻿{extend name="public/base"}
+{block name="meta"}
+{include file="public/meta" /}
+{/block}
+{block name="head"}
+{include file="public/head" /}
+{/block}
+{block name="content"}
+<body>
+<div class="page-container">
+    <p class="f-20 text-success">博客系统后台管理 <span class="f-14">v1.1</span></p>
+    <p>登录次数：18 </p>
+    <p>登录IP：{{$ip}}  登录时间：{{:date("Y-m-d H:i:s",time())}}</p>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th colspan="7" scope="col">信息统计</th>
+        </tr>
+        <tr class="text-c">
+            <th>统计</th>
+            <th>文章库</th>
+            <th>图片库</th>
+            <th>分类库</th>
+            <th>用户</th>
+            <th>管理员</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td>总数</td>
+            <td>92</td>
+            <td>10</td>
+            <td>25</td>
+            <td>7</td>
+            <td>20</td>
+        </tr>
+        <tr class="text-c">
+            <td>今日</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr class="text-c">
+            <td>昨日</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr class="text-c">
+            <td>本周</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr class="text-c">
+            <td>本月</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-border table-bordered table-bg mt-20">
+        <thead>
+        <tr>
+            <th colspan="2" scope="col">服务器信息</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>服务器IP地址</td>
+            <td>{{$Request.ip}}</td>
+        </tr>
+        <tr>
+            <td>服务器域名</td>
+            <td>{{$Request.domain}}</td>
+        </tr>
+        <tr>
+            <td>服务器端口</td>
+            <td>{{$Request.port}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{/block}
+{block name="footer" /}
+{include file="public/footer" /}
+{/block}
+{block name="script" /}
+{include file="public/script" /}
+{/block}

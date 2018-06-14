@@ -1,0 +1,29 @@
+<div id="login">
+    <div class="login-t">用户登录</div>
+    <span class="close"><i class="iconfont icon-windowclose" style=""></i></span>
+    <form action="http://www.ricemouse.com/wp-login.php?redirect_to=http%3A%2F%2Fwww.ricemouse.com%2F185.html" method="post" id="loginform">
+        <p>
+            <label class="icon" for="username"><i class="iconfont icon-account"></i></label>
+            <input class="input-control" id="log" type="text" placeholder="请输入用户名" name="log" required="" aria-required="true">
+        </p>
+
+        <p>
+            <label class="icon" for="password"><i class="iconfont icon-lock"></i></label>
+            <input class="input-control" id="pwd" type="password" placeholder="请输入密码" name="pwd" required="" aria-required="true">
+        </p>
+
+        <p class="safe">
+            <label class="remembermetext" for="rememberme"><input name="rememberme" type="checkbox" checked="checked" id="rememberme" class="rememberme" value="forever">记住我的登录</label>
+            <span class="lost">
+			<a href="http://www.ricemouse.com/wp-login.php?action=register">注册</a> |
+            <a  href="http://www.ricemouse.com/wp-login.php?action=lostpassword">忘记密码?</a>
+			</span>
+        </p>
+
+        <p>
+            <input class="submit" type="submit" value="登录" name="submit">
+            <input type="hidden" name="redirect_to" value="/" />
+        </p>
+    </form>
+    <div class="login-b"></div>
+</div>
